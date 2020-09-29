@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../index');
 
 describe('FibonacciS APIs:', () => {
-    it('Should return sequence first 4 fib numbers, up to /fibonaccis/n-th index, (indexed from 0):', async () => {
+    it('Should return sequence of first 4 fib numbers, (indexed from 0):', async () => {
         const three_seq_len = [0, 1, 1, 2];
 
         const { body } = await request(app)
