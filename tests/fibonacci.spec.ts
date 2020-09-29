@@ -30,6 +30,20 @@ describe('FibonacciS APIs:', () => {
         expect(result.length).to.deep.equal(expected_length);
     });
 
+    it('Should return sequence of first 1mil fib numbers, (indexed from 0):', async () => {
+        const expected_length = 1000000;
+
+        const { body } = await request(app)
+            .get(`/fibonaccis/${expected_length - 1}`)
+            .expect('Content-Type', /json/);
+
+        const { result, status } = body;
+
+        // console.log({ result });
+
+        expect(status).to.equal("OK");
+        expect(result.length).to.deep.equal(expected_length);
+    });
 });
 
 describe('Fibonacci numbers (indexed from 0):', () => {
