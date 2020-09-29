@@ -69,7 +69,7 @@ describe('Fibonacci numbers (indexed from 0):', () => {
     });
 
 
-    it('Should return the 6th fib number', async () => {
+    it('Should return the 5th fib number', async () => {
         const number = 5;
         const { body } = await request(app)
             .get('/fibonacci/5')
