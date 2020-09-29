@@ -27,7 +27,7 @@ describe('FibonacciS APIs:', () => {
         const { result, status } = body;
 
         expect(status).to.equal("OK");
-        expect(result.length).to.deep.equal(expected_length);
+        expect(result.length).to.equal(expected_length);
     });
 
     it('Should return sequence of first 1mil fib numbers, (indexed from 0):', async () => {
@@ -42,7 +42,7 @@ describe('FibonacciS APIs:', () => {
         // console.log({ result });
 
         expect(status).to.equal("OK");
-        expect(result.length).to.deep.equal(expected_length);
+        expect(result.length).to.equal(expected_length);
     });
 });
 
