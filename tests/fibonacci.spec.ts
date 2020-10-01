@@ -58,6 +58,17 @@ describe('Fibonacci numbers (indexed from 0):', () => {
         expect(status).to.equal("OK");
         expect(result).to.equal(number);
     });
+    it('Should return the 0th fib number in sequence if negative index requested', async () => {
+        const number = 0;
+        const { body } = await request(app)
+            .get('/fibonacci/-9999999999')
+            .expect('Content-Type', /json/);
+
+        const { result, status } = body;
+
+        expect(status).to.equal("OK");
+        expect(result).to.equal(number);
+    });
     it('Should return the 2nd fib number in sequence', async () => {
         const number = 1;
         const { body } = await request(app)

@@ -1,5 +1,7 @@
 const app = require('express')();
 
+// no input validation, just basic solution
+
 app.get('/fizzbuzz/:number', (req, res) => {
     const { number } = req.params; // ignore string type from path/
 
@@ -36,23 +38,20 @@ app.get('/fibonaccis/:number', (req, res) => {
     res.json({ status: 'OK', result: sequence });
 });
 
+const fib_num_1 = 0;
+const fib_num_2 = 1;
+
 // no recursion
 const fib = (num) => {
-    if (num == 0) {
-        return {
-            last_num: 0,
-            sequence: [0]
-        };
-    }
+    const arr = [fib_num_1];
 
-    const fib_num_1 = 0;
-    const fib_num_2 = 1;
+    if (num && num >= 1) {
+        arr.push(fib_num_2);
 
-    const arr = [fib_num_1, fib_num_2];
-
-    while (arr.length <= num) {
-        const n = arr[arr.length - 1] + arr[arr.length - 2];
-        arr.push(n)
+        while (arr.length <= num) {
+            const n = arr[arr.length - 1] + arr[arr.length - 2];
+            arr.push(n);
+        }
     }
 
     return {
