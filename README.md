@@ -56,17 +56,18 @@ function fib(n) {
 The call stack for such an implementation would look as follows:
 |||||||||||||
 |---|---|---|---|---|---|---|---|---|---|---|---|
-||||||      fib(5)||||   |||
-|||||    fib(4) || fib(3)||| ||||
-||||   fib(3)|fib(2) || fib(2)|fib(1)| |||  |
-|||   fib(2)|fib(1)|fib(1)| fib(0) |fib(1)|fib(0)|fib(0)|0 |||
-||  fib(1)|fib(0) | |fib(0)|0|fib(0)|0|fib(0)|0||
-| fib(0)|0||0|0||||0||0||
-|0||||||||||||
+||||||||      fib(5)|||   |
+||||||    fib(4) || ||fib(3)| ||
+|||||   fib(3)||fib(2) || fib(2)||fib(1) |
+||||   fib(2)|fib(1)||fib(1)| fib(0) |fib(1)|fib(0)|fib(0)|0 
+|||  fib(1)|fib(0) |fib(0)|0|fib(0)|0|fib(0)|0|0
+|| fib(0)|0|0|0||0||0|||
+|0|||||||||||
 
-> where it would recursively go depth-first into leftmost of tree/execution path - fib(n-1) until it gets to 0
+> where it would recursively go depth-first into leftmost of the tree/execution path - fib(n-1) until it gets to 0
 
 that's
+
 * 1x call for fib(5) & fib(4)
 * 2x fib(3) calls
 * 3x fib(2) calls
@@ -74,7 +75,7 @@ that's
 * 7x fib(0) calls
 * etc
 
-And this is just for the first 5 fibonacci numbers where the call stack keeps doubling with each level
+And this is just for the first 5 fibonacci numbers. The amount of work keeps doubling with each level
 
 That's exponential O(2^n) time complexity. For more than 2 previous numbers, say 5, it'd be O(5^n)
 
@@ -83,7 +84,7 @@ We only need to calculate the value of each number once, everything else is wast
 For example:
 
 ```js
-const map = { 1: 1};
+const map = { 1: 1 };
 function fib(n) {
     // base cases
     if (n===0) return 0;
@@ -108,7 +109,9 @@ function fib(n) {
 * Looking at the previous table, it will execute recursively/depth first fib(5), fib(4), ...fib(0), and then for every fib(n-2), we'll reach out break clause due to map - O(n+(1)) ~ O(n) time complexity
 * Time complexity scales better with arbitrary large input like this as it doesn't have to repeat the same work more than once, it will let us break out early
 
-### Iterative implementations
+### Iterative Approach
+
+Looking back at the table above, it requires walking up from the base case up to the desired number.
 
 Did basic implementation with keeping sequence in an array and summing of last 2 elements on each iteration, 3 sliding pointers, dynamic number of previous elements in the array, linked lists
 
