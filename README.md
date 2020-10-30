@@ -27,8 +27,9 @@ npm test
 
 0. With static number of previous numbers, we can use 2, 3 or however many pointers needed and have O(n) time and O(1) space complexity
 
-1. If entire sequence of numbers is needed, O(n) is the best space complexity we can get
-    Otherwise, at worst O(prev_number) space is needed to maintain the set/pointers of previous numbers for the current sum; linear size that doesn't change with respects to input size n
+1. If entire sequence of numbers is needed, O(n) is the best space complexity we can get.
+
+Otherwise, at worst O(prev_number) space is needed to maintain the set/pointers of previous numbers for the current sum; linear size that doesn't change with respects to input size n
 
 2. With dynamic number of previous numbers, we want not to have to recalculate the sum for a given set more than once, so for each next number we want to do a constant amount of work instead of repeating ourselves; e.g:
    * sum += arr[i]; vs
@@ -128,7 +129,7 @@ while (true) {
 
 #### On Dynamic number of prev numbers
 
-> Need to programmatically access 
+> Need to programmatically access each pointer/number at least once and maintain sum of current pointers/remove oldest
 
 1. Naive array with dynamic number of previous numbers/double loop has O(n*prev_numbers) time complexity & O(n) space complexity with append only operations
 
@@ -154,6 +155,8 @@ Can keep appending to the end of the array, but to reduce the space complexity w
 
 * Naive queues with array.shift() aimed at reducing space complexity, would need to shift all elements one position over when dequeueing first,
    which is O(n) work on its own, so time would be O(n(n+prev_numbers)) to reduce space down to O(prev_numbers) which isn't the best approach if removing the first element requires shifting all others each iteration.
+
+* Once we have a queue, we can keep a local value for the sum and increase it for each new number added and decrease it by each number removed
 
 A naive queue implementation on top of an array would be O(n^2) on its own for this usecase.
 
