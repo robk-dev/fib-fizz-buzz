@@ -21,7 +21,6 @@ const fib = (num) => {
     };
 }
 
-// no recursion
 // O(n) time complexity O(1) space
 const fib_pointers = (num) => {
     let num1 = fib_num_1;
@@ -34,7 +33,7 @@ const fib_pointers = (num) => {
     i = 2;
     let sum;
     while (i++ <= num) {
-        sum = BigInt(num3 + num2 + num1);
+        sum = num3 + num2 + num1;
         num1 = num2;
         num2 = num3;
         num3 = sum;
@@ -44,43 +43,6 @@ const fib_pointers = (num) => {
         last_num: num3
     };
 };
-
-
-// app.get('/fib/num/pointers/:number/', (req, res) => {
-//     const { number } = req.params;
-//     const { last_num: response } = fib_pointers(number);
-
-//     res.json({ status: 'OK', result: response });
-// });
-
-
-// app.get('/fib/num/arr/:number/:prev_nums', (req, res) => {
-//     const { number, prev_nums } = req.params;
-//     const { last_num: response } = fib_arr_sliding_window(number, prev_nums);
-
-//     res.json({ status: 'OK', result: response });
-// });
-
-// app.get('/fib/num/list/:number/:prev_nums', (req, res) => {
-//     const { number, prev_nums } = req.params;
-//     const { last_num: response } = fib_ll(number, prev_nums);
-
-//     res.json({ status: 'OK', result: response });
-// });
-
-// app.get('/fib/seq/arr/:number/:prev_nums', (req, res) => {
-//     const { number, prev_nums } = req.params;
-//     const { sequence: response } = fib_arr_sliding_window(number, prev_nums);
-
-//     res.json({ status: 'OK', result: response });
-// });
-
-// app.get('/fib/seq/list/:number/:prev_nums', (req, res) => {
-//     const { number, prev_nums } = req.params;
-//     const { sequence: response } = fib_ll(number, prev_nums);
-
-//     res.json({ status: 'OK', result: response });
-// });
 
 /**
  *
@@ -168,8 +130,8 @@ const fib_arr_sliding_window = (num, prev_numbers) => {
 }
 
 // fib_ll_arr 
-// time complexity is O(prev_numbers + num)
-// space complexity can be O(prev_numbers) without the array
+// time complexity is O(prev_numbers+n)
+// space complexity is // O(prev_numbers + n) with initialization
 const fib_ll_arr = (num, prev_numbers) => {
     const ll = linked_list();
     const arr = [fib_num_1]; // can drop the array 
@@ -230,7 +192,7 @@ const fib_ll = (num, prev_numbers) => {
 
 
 const routes = {
-    num: { fib, pointers: fib_pointers, arr: fib_arr_sliding_window, list: fib_ll },
+    num: { fib, pointer: fib_pointers, arr: fib_arr_sliding_window, list: fib_ll },
     seq: { fib, arr: fib_arr_sliding_window, list: fib_ll_arr },
 };
 

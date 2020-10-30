@@ -1,18 +1,31 @@
 const request = require('supertest');
 
-const sequence = [0, 1, 1, 2, 3, 5, 8, 13];
 const expected_response = { last_num: 13, sequence: [0, 1, 1, 2, 3, 5, 8, 13] };
 
-describe('Sliding Pointers:', () => {
-    it('fib(7, 2) should return sequence of first 8 fib numbers, (indexed from 0):', async () => {
+describe('Fibonacci 3 Sliding Pointers:', () => {
+    it('fib(7, 3) should return the 8th fib numbers, (indexed from 0):', async () => {
+        const last_num = { last_num: 44 };
+
         const { body } = await request(process.env.BASE_URL)
-            .get('/fib/seq/arr/7/2')
+            .get('/fib/num/pointer/7/3')
             .expect('Content-Type', /json/);
 
         const { result, status } = body;
 
         expect(status).toBe("OK");
-        expect(result).toStrictEqual(expected_response);
+        expect(result).toStrictEqual(last_num);
+    });
+
+    it('fib(1000, 3) should return the millionth fib number, (indexed from 0):', async () => {
+        const { body } = await request(process.env.BASE_URL)
+            .get('/fib/num/pointer/1000/3')
+            .expect('Content-Type', /json/);
+
+        const last_num = { last_num: 2.7588428077664853e+264 };
+        const { result, status } = body;
+
+        expect(status).toBe("OK");
+        expect(result).toStrictEqual(last_num);
     });
 });
 

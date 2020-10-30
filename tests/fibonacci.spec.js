@@ -36,8 +36,6 @@ describe('Fibonacci Basic APIs:', () => {
 
         const { result, status } = body;
 
-        // console.log({ result });
-
         expect(status).toBe("OK");
         expect(result.length).toBe(expected_length);
     });
