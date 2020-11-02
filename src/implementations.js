@@ -162,7 +162,7 @@ const fib_ll_arr = (num, prev_numbers) => {
 }
 
 // fib_ll
-// time complexity is O(prev_numbers + num)
+// time complexity is O(prev_numbers + num) - O(n)
 // space complexity is O(prev_numbers)
 const fib_ll = (num, prev_numbers) => {
     const ll = linked_list();
@@ -190,9 +190,35 @@ const fib_ll = (num, prev_numbers) => {
     };
 }
 
+// time complexity is O(2^n)
+// space complexity is O(1) // not accounting for stack
+const fib_recur = (n) => {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    return fib_recur(n - 1) + fib_recur(n - 2);
+}
+
+// time complexity is O(n)
+// space complexity is O(n) // not accounting for stack
+const fib_recur_opt = (n) => {
+    const map = { 1: 1 };
+
+    const recurse = (n) => {
+        if (n == 0) return 0;
+        if (!!map[n]) return map[n];
+
+        map[n] = recurse(n - 1) + recurse(n - 2);
+        return map[n];
+    }
+
+
+    return recurse(n);
+}
+
 
 const routes = {
-    num: { fib, pointer: fib_pointers, arr: fib_arr_sliding_window, list: fib_ll },
+    num: { fib, pointer: fib_pointers, arr: fib_arr_sliding_window, list: fib_ll, recurse: fib_recur_opt, 'naive-recurse': fib_recur },
     seq: { fib, arr: fib_arr_sliding_window, list: fib_ll_arr },
 };
 

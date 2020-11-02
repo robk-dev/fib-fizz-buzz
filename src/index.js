@@ -38,7 +38,7 @@ app.get('/fibonacci/seq/:number', (req, res) => {
     res.json({ status: 'OK', result: sequence });
 });
 
-// /num/(fib || pointers || arr || list
+// /num/(fib || pointers || arr || list || resurce || naive-recurse)
 // /seq/(fib || arr ||list)
 app.get('/fib/:num_or_seq/:impl/:number/:prev_nums', (req, res) => {
     const { num_or_seq, impl, number, prev_nums } = req.params;

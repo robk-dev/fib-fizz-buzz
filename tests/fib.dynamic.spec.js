@@ -2,6 +2,32 @@ const request = require('supertest');
 
 const expected_response = { last_num: 13, sequence: [0, 1, 1, 2, 3, 5, 8, 13] };
 
+describe('Fibonacci Recursive:', () => {
+    it('fib(7) should return the 8th fib numbers, (indexed from 0):', async () => {
+
+        const { body } = await request(process.env.BASE_URL)
+            .get('/fib/num/recurse/7/3')
+            .expect('Content-Type', /json/);
+
+        const { result, status } = body;
+
+        expect(status).toBe("OK");
+        expect(result).toStrictEqual(13);
+    });
+
+    it('fib(7) should return the 8th fib numbers, (indexed from 0):', async () => {
+
+        const { body } = await request(process.env.BASE_URL)
+            .get('/fib/num/naive-recurse/7/3')
+            .expect('Content-Type', /json/);
+
+        const { result, status } = body;
+
+        expect(status).toBe("OK");
+        expect(result).toStrictEqual(13);
+    });
+});
+
 describe('Fibonacci 3 Sliding Pointers:', () => {
     it('fib(7, 3) should return the 8th fib numbers, (indexed from 0):', async () => {
         const last_num = { last_num: 44 };
@@ -16,7 +42,7 @@ describe('Fibonacci 3 Sliding Pointers:', () => {
         expect(result).toStrictEqual(last_num);
     });
 
-    it('fib(1000, 3) should return the millionth fib number, (indexed from 0):', async () => {
+    it('fib(1000, 3) should return the 1000th fib number, (indexed from 0):', async () => {
         const { body } = await request(process.env.BASE_URL)
             .get('/fib/num/pointer/1000/3')
             .expect('Content-Type', /json/);

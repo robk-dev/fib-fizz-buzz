@@ -17,19 +17,23 @@ npm test
 
 ### Available endpoints
 
-* localhost:1234/num/(fib || pointer || arr || list)/n/prev_nums
+* localhost:1234/num/(fib || pointer || arr || list | recurse | naive-recurse)/n/prev_nums
 * localhost:1234/seq/(fib || arr || list)/n/prev_nums // where list here uses an array to save sequence
 
 ## Notes
 
-> Ignoring initialization step which would be at least O(prev_nums) for each complexity 
-> not dominant term but would mean some take O(prev_numbers + n) time instead of O(n)
+To calculate the classic Fibonacci sequence, each next number in the sequence is equal to the sum of the previous 2 numbers:
+1,1,2,3,5,8,13...
+
+> Ignoring initialization step which would be at least O(prev_nums) for each complexity
+> where prev_numbers would be second input to fib(n, prev_numbers)...
+> not dominant term but would mean some time complexities are O(prev_numbers + n) time instead of O(n)
 
 0. With static number of previous numbers, we can use 2, 3 or however many pointers needed and have O(n) time and O(1) space complexity
 
 1. If entire sequence of numbers is needed, O(n) is the best space complexity we can get.
 
-Otherwise, at worst O(prev_number) space is needed to maintain the set/pointers of previous numbers for the current sum; linear size that doesn't change with respects to input size n
+Otherwise, at worst O(prev_number) space is needed to maintain the set/pointers of previous numbers for the current sum; linear size that doesn't change with respects to input size n & prev_number < n
 
 2. With dynamic number of previous numbers, we want not to have to recalculate the sum for a given set more than once, so for each next number we want to do a constant amount of work instead of repeating ourselves; e.g:
    * sum += arr[i]; vs
@@ -72,15 +76,17 @@ that's
 * 1x call for fib(5) & fib(4)
 * 2x fib(3) calls
 * 3x fib(2) calls
-* 4x fib(1) calls
-* 7x fib(0) calls
+* 5x fib(1) calls
+* 8x fib(0) calls
 * etc
 
 And this is just for the first 5 fibonacci numbers. The amount of work keeps doubling with each level
 
-That's exponential O(2^n) time complexity. For more than 2 previous numbers, say 5, it'd be O(5^n)
+That's exponential O(2^n) time complexity. For more than 2 previous numbers to compute, say 5, it'd be O(5^n)
 
-We only need to calculate the value of each number once, everything else is wasted work, so caching/memoization via a hashmap or an indexed array which lets us check whether the number was already computed, would let us do a leftmost/depth-first recursion and eliminate almost all other execution paths 
+The space complexity is O(1) as we store nothing, but that isn't to say we don't take up any space on the stack.
+
+We only need to calculate the value of each number once, everything else is wasted work, so caching/memoization via a hashmap or an indexed array which lets us check whether the number was already computed would let us do a leftmost/depth-first recursion and eliminate almost all other execution paths.
 
 For example:
 
@@ -127,7 +133,7 @@ while (true) {
 }
 ```
 
-#### On Dynamic number of prev numbers
+## Dynamic number of prev numbers
 
 > Need to programmatically access each pointer/number at least once and maintain sum of current pointers/remove oldest
 
@@ -172,8 +178,8 @@ In reality, space complexity is at least O(2*prev_numbers) due to pointers (and 
 
 * Implemented using doubly linked list though singly linked one would've worked as well
 * Linked list can be slower due to dynamically allocating each next node in different places in memory and having worse cache performance
-* Best time complexity solution, i.e. O(1) or O(log(n)) would involve precomputing all the combinations for the set of all numbers up to infinity for each possible prev_numbers value, i.e. O(n!*prev_numbers!)
+* Best time complexity solution, i.e. O(1) or O(log(n)) would involve precomputing all the combinations for the set of all numbers up to infinity for each possible prev_numbers value, i.e. O(n!*prev_numbers!) or some reasonable MAX_INTEGER
 
 ### Further work
 
-* adding limits for up to BigInt(Number.MAX_SAFE_INTEGER) might be a good idea or forcing 32 bit math for faster addition
+* adding limits for up to BigInt(Number.MAX_SAFE_INTEGER) might be a good idea or forcing 32 bit ints for faster math
